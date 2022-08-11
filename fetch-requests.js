@@ -60,3 +60,33 @@ second();
 /* ============================== Phase 3 ============================== */
 
 // Your code here
+const searchParams = new URLSearchParams({
+    name: "Caribbean Delight Coffee",
+    description: "Made by Manatee Coffee",
+    price: 11.99,
+    categories: "grocery"
+})
+
+async function three() {
+    try {
+        const data = await fetch("/products", {
+          method: "POST",
+          body: searchParams,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        });
+        const print = {
+          statusCode: data.status,
+          contentType: data.headers.get("Content-Type"),
+          redirected: data.redirected,
+          url: data.url,
+        };
+        console.log(print);
+        return print;
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+}
+
+three();
